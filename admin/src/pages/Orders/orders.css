@@ -26,7 +26,21 @@
     padding: 10px;
     outline: none;
 }
-@media(max-width:1000px){
+
+:root .order-item select{
+    background-color: black;
+    color: white;
+    border: 1px solid tomato;
+}
+
+.lightcolors .order-item select{
+    background-color: #ffe8e4;
+    color: black;
+    border: 1px solid tomato;
+}
+
+
+@media (max-width:1000px) {
     .order-item{
         font-size: 12px;
         grid-template-columns: 0.5fr 2fr 1fr;

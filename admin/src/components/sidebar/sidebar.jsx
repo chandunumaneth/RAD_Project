@@ -1,27 +1,35 @@
 import React from 'react'
-import "./sidebar.css"
+import './Sidebar.css'
 import { assets } from '../../assets/assets'
 import { NavLink } from 'react-router-dom'
 
-function sidebar() {
+const Sidebar = () => {
   return (
     <div className='sidebar'>
-      <div className="sidebar-options">
-        <NavLink to='/add' className="sidebar-option">
-            <img src={assets.add_icon} alt="" />
-            <p>Add Items</p>
-        </NavLink>
-        <NavLink to='/list' className="sidebar-option">
-            <img src={assets.order_icon} alt="" />
-            <p>List Items</p>
-        </NavLink>
-        <NavLink to='/orders' className="sidebar-option">
-            <img src={assets.order_icon} alt="" />
-            <p>Orders</p>
-        </NavLink>
-      </div>
+        <div className="sidebar-options">
+            <NavLink to='/add' className="sidebar-option">
+                <img className='addd' src={assets.add_icon} alt="" />
+                <p>Add Items</p>
+            </NavLink>
+            <NavLink to='/addshops' className="sidebar-option">
+                <img className='addd addd_shop' src={assets.add_icon} alt="" />
+                <p>Add Shops</p>
+            </NavLink>
+            <NavLink to='/list' className="sidebar-option">
+                <img className='listt' src={assets.order_icon} alt="" />
+                <p>List Items</p>
+            </NavLink>
+            <NavLink to='/listshops' className="sidebar-option">
+                <img className='listt listt_shops' src={assets.order_icon} alt="" />
+                <p>Shop list</p>
+            </NavLink>
+            <NavLink to='/orders' className="sidebar-option">
+                <img className='orderr' src={assets.order_icon} alt="" />
+                <p>Orders</p>
+            </NavLink>
+        </div>
     </div>
   )
 }
 
-export default sidebar
+export default Sidebar

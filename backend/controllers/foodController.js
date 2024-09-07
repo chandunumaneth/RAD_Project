@@ -1,65 +1,59 @@
-import { log } from "console";
 import foodModel from "../models/foodModels.js";
-import fs from 'fs'; //file-system pre-built in node.js
+import fs from 'fs'
 
-//add food item
+const addFood = async (req, res) => {
+    let image_filename = `${req.file.filename}`
 
-const addFood = async (req,res) => {
-
-    let image_filename = `${req.file.filename}`;
-
-    const food = new foodModel ({
-        name : req.body.name,
-        description : req.body.description,
-        price : req.body.price,
-        category : req.body.category,
-        image : image_filename
-        //Add store if in here
+    const food = new foodModel({
+        name:req.body.name,
+        description:req.body.description,
+        price:req.body.price,
+        category:req.body.category,
+        image:image_filename
     })
 
-    try {
+    try{
         await food.save();
-        res.json({success:true,mesage:"Food Added!"})
-    } catch (error) {
-        console.log(error);
-        res.json({success:false,message:"Error while saving product!"});
-    }
-
-};
-
-//all food list
-
-const listFood = async (req,res) => {
-    try {
-        const foods = await foodModel.find({});
-        res.json({success:true,data:foods});
-
-    } catch (error) {
-        console.log(error);
-        res.json({success:false,message:"Food Listing Error!"})
+        res.json({ success: true, message: "Food added successfully"})
+    }catch(error){
+        console.log(error)
+        res.status(500).json({ success: false, message: "Internal server error"})
     }
 }
 
-//remove food item
+//all foodlist
 
-const removeFood = async (req,res) => {
-    try {
+const listFood = async (req, res) => {
+    try{
+        const foods = await foodModel.find({});
+        res.json({ success: true, foods: foods})
+    }catch(error){
+        console.log(error)
+        res.status(500).json({ success: false, message: "Error"})
+    }
+}
+
+//remove food
+
+const removeFood = async (req, res) => {
+    try{
         const food = await foodModel.findById(req.body.id);
-        fs.unlink(`uploads/${food.image}`, () => {})
+        const imagePath = `uploads/foods/${food.image}`
+
+        fs.unlink(imagePath, (err) => {
+            if(err){
+                console.log(err)
+            }
+        })
 
         await foodModel.findByIdAndDelete(req.body.id);
-        res.json({success:true,mesage:"Food Removed!"});
-    } catch (error) {
-        console.log(error);
-        res.json({success:false,message:"Food Removing Error!"});
+        res.json({ success: true, message: "Food removed successfully"})
+    }catch(error){
+        console.log(error)
+        res.status(500).json({ success: false, message: "Internal server error"})
     }
-
 }
-
-//Add food item update function here  
-
-export {addFood,listFood,removeFood};
+    
 
 
-
-
+export {addFood, listFood, removeFood}
