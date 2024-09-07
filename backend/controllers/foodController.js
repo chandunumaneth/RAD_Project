@@ -1,16 +1,20 @@
 import foodModel from "../models/foodModels.js";
 import fs from 'fs'
+import mongoose from 'mongoose'; // Ensure mongoose is imported
 
 const addFood = async (req, res) => {
-    let image_filename = `${req.file.filename}`
+    const image_filename = req.file ? `${req.file.filename}` : '';
+    
+    const { name, description, price, category, shopId } = req.body;
 
     const food = new foodModel({
-        name:req.body.name,
-        description:req.body.description,
-        price:req.body.price,
-        category:req.body.category,
-        image:image_filename
-    })
+        name,
+        description,
+        price,
+        category,
+        shop: shopId, // Save the shop reference
+        image: image_filename
+    });
 
     try{
         await food.save();
