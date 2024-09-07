@@ -1,61 +1,68 @@
-import { log } from "console";
-import foodModel from "../models/foodModel.js";
-import fs from 'fs'; //file-system pre-built in node.js
+import foodModel from '../models/foodModel.js';
+import fs from 'fs';
+import mongoose from 'mongoose'; // Ensure mongoose is imported
 
-//add food item
-
-const addFood = async (req,res) => {
-
-    let image_filename = `${req.file.filename}`;
-
-    const food = new foodModel ({
-        name : req.body.name,
-        description : req.body.description,
-        price : req.body.price,
-        category : req.body.category,
-        image : image_filename
-    })
-
+// Add food item
+const addFood = async (req, res) => {
     try {
-        await food.save();
-        res.json({success:true,mesage:"Food Added!"})
-    } catch (error) {
-        console.log(error);
-        res.json({success:false,message:"Error while saving product!"});
-    }
+        const { name, description, price, category, shopId } = req.body; // Include shopId in destructuring
 
+        // Use the uploaded image filename
+        const image_filename = req.file ? `${req.file.filename}` : '';
+
+        const food = new foodModel({
+            name,
+            description,
+            price,
+            category,
+            shop: shopId, // Save the shop reference
+            image: image_filename
+        });
+
+        await food.save();
+        res.json({ success: true, message: 'Food Added' });
+    } catch (error) {
+        console.error("Error adding food:", error);
+        res.json({ success: false, message: 'Error adding food' });
+    }
 };
 
-//all food list
-
-const listFood = async (req,res) => {
+// List all food items
+const listFood = async (req, res) => {
     try {
-        const foods = await foodModel.find({});
-        res.json({success:true,data:foods});
-
+        const foods = await foodModel.find({}).populate('shop');
+        res.json({ success: true, data: foods });
     } catch (error) {
-        console.log(error);
-        res.json({success:false,message:"Food Listing Error!"})
+        console.error("Error fetching food list:", error); // Better error logging
+        res.json({ success: false, message: 'Error fetching food list' });
     }
-}
+};
 
-//remove food item
-
-const removeFood = async (req,res) => {
+// Remove food item
+const removeFood = async (req, res) => {
     try {
         const food = await foodModel.findById(req.body.id);
-        fs.unlink(`uploads/${food.image}`, () => {})
 
-        await foodModel.findByIdAndDelete(req.body.id);
-        res.json({success:true,mesage:"Food Removed!"});
+        if (food) {
+            if (food.image) {
+                fs.unlink(`uploads/${food.image}`, (err) => {
+                    if (err) console.error(`Error removing image file: ${err}`);
+                });
+            }
+
+            await foodModel.findByIdAndDelete(req.body.id);
+            res.json({ success: true, message: 'Food Removed' });
+        } else {
+            res.json({ success: false, message: 'Food not found' });
+        }
     } catch (error) {
-        console.log(error);
-        res.json({success:false,message:"Food Removing Error!"});
+        console.error("Error removing food:", error); // Better error logging
+        res.json({ success: false, message: 'Error removing food' });
     }
+};
 
-}
+export { addFood, listFood, removeFood };
 
-export {addFood,listFood,removeFood};
 
 
 
