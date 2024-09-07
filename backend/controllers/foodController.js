@@ -14,6 +14,7 @@ const addFood = async (req,res) => {
         price : req.body.price,
         category : req.body.category,
         image : image_filename
+        //Add store if in here
     })
 
     try {
@@ -54,6 +55,8 @@ const removeFood = async (req,res) => {
     }
 
 }
+
+//Add food item update function here  
 
 export {addFood,listFood,removeFood};
 
