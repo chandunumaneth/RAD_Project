@@ -4,7 +4,7 @@ import './foodItem.css';
 import { assets } from '../../assets/assets';
 import { StoreContext } from '../../context/storeContext';
 
-function FoodItem({ id, name, price, description, image }) {
+function FoodItem({ id, name, price, description, image, shopName }) {
   const { cartItem, addToCart, removeFromCart, url } = useContext(StoreContext);
   const navigate = useNavigate(); // Create a navigate function
 
@@ -38,6 +38,7 @@ function FoodItem({ id, name, price, description, image }) {
         </div>
         <p className="food-item-description">{description}</p>
         <p className="food-item-price">${price}</p>
+        <p className="food-item-shop">from {shopName}</p> 
       </div>
     </div>
   );
