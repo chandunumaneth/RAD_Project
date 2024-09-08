@@ -29,13 +29,19 @@ const addFood = async (req, res) => {
 
 const listFood = async (req, res) => {
     try {
-        const foods = await foodModel.find({}).populate('shop', 'name'); // Populates shop's name field
-        res.json({ success: true, foods });
+        const foods = await foodModel.find({}).populate('shop', 'name'); 
+        // Transform foods to include shop name in the response
+        const foodListWithShopNames = foods.map(food => ({
+            ...food._doc, 
+            shop: food.shop ? food.shop.name : 'unknown' // Add shop name or null if not available
+        }));
+
+        res.json({ success: true, data: foodListWithShopNames });
     } catch (error) {
-        console.log(error);
-        res.status(500).json({ success: false, message: "Error" });
+        console.error("Error fetching food list:", error); // Better error logging
+        res.json({ success: false, message: 'Error fetching food list' });
     }
-}
+};
 
 
 //remove food
