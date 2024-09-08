@@ -29,18 +29,27 @@ function FoodDetails() {
     fetchComments();
   }, [id, food_list, url]);
 
+  const fetchComments = async () => {
+    try {
+      const response = await axios.get(`${url}/api/comment/get/${id}`);
+      setComments(response.data);
+    } catch (err) {
+      console.error("Error fetching comments", err);
+    }
+  };
+
   const handleCommentSubmit = async () => {
     if (token && newComment) {
       try {
-        const response = await axios.post(`${url}/api/comment/add`, {
+        await axios.post(`${url}/api/comment/add`, {
           productId: id,
           comment: newComment,
           email: localStorage.getItem("email")
         }, {
           headers: { token }
         });
-        setComments([...comments, response.data.comment]);
-        setNewComment("");
+        setNewComment(""); // Clear the input field
+        fetchComments(); // Reload comments from the backend
       } catch (err) {
         console.error("Error adding comment", err);
       }
@@ -57,25 +66,21 @@ function FoodDetails() {
         headers: { token }
       });
 
-      setComments(comments.map(comment => 
-        comment._id === commentId ? { ...comment, comment: editingCommentText } : comment
-      ));
       setEditingCommentId(null);
       setEditingCommentText("");
+      fetchComments(); // Reload comments after editing
     } catch (err) {
       console.error("Error updating comment", err);
     }
   };
 
   const handleDeleteComment = async (commentId) => {
-    console.log("Deleting comment", commentId);
     try {
-
       await axios.delete(`${url}/api/comment/delete/${commentId}`, {
         headers: { token }
       });
 
-      setComments(comments.filter(comment => comment._id !== commentId));
+      fetchComments(); // Reload comments after deletion
     } catch (err) {
       console.error("Error deleting comment", err);
     }
@@ -108,9 +113,7 @@ function FoodDetails() {
               : comment.comment
             }</p>
 
-            
-            {// need both token and email to edit or delete a comment
-            token && localStorage.getItem("email") === comment.email && (
+            {token && localStorage.getItem("email") === comment.email && (
               <div className='comment-buttons'>
                 {comment._id === editingCommentId ? (
                   <button className="edit-button" onClick={() => handleEditComment(comment._id)}>Save</button>
