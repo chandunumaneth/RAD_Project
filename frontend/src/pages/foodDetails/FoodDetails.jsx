@@ -56,21 +56,23 @@ function FoodDetails() {
     }
   };
 
-  const handleEditComment = async (commentId) => {
-    try {
-      await axios.patch(`${url}/api/comment/update/${commentId}`, {
-        comment: editingCommentText,
-        email: localStorage.getItem("email"),
-        productId: id
-      }, {
-        headers: { token }
-      });
-
-      setEditingCommentId(null);
-      setEditingCommentText("");
-      fetchComments(); // Reload comments after editing
-    } catch (err) {
-      console.error("Error updating comment", err);
+ const handleEditComment = async (commentId) => {
+    if (editingCommentId && editingText) {
+      try {
+        await axios.patch(`${url}/api/comment/update`, {
+          commentId: editingCommentId,  // Pass commentId
+          comment: editingText,
+          email: localStorage.getItem("email"),
+        }, {
+          headers: { token }
+        });
+  
+        setEditingCommentId(null);
+        setEditingText("");
+        fetchComments();
+      } catch (err) {
+        console.error("Error updating comment", err);
+      }
     }
   };
 
