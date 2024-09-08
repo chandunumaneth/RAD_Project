@@ -4,6 +4,11 @@ import { assets } from '../../assets/assets'
 
 function aboutTimeline() {
   return (
+    <>
+    <div className='main-container'>
+    <div className='title'>
+    <h1>Feeling Hungry? Just Order</h1>
+    </div>
     <div className="timeline">
     <div className="container left">
         <div className="content">
@@ -30,6 +35,8 @@ function aboutTimeline() {
         </div>
     </div>
     </div>
+    </div>
+    </>
   )
 }
 
