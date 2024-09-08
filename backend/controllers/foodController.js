@@ -28,14 +28,15 @@ const addFood = async (req, res) => {
 //all foodlist
 
 const listFood = async (req, res) => {
-    try{
-        const foods = await foodModel.find({});
-        res.json({ success: true, foods: foods})
-    }catch(error){
-        console.log(error)
-        res.status(500).json({ success: false, message: "Error"})
+    try {
+        const foods = await foodModel.find({}).populate('shop', 'name'); // Populates shop's name field
+        res.json({ success: true, foods });
+    } catch (error) {
+        console.log(error);
+        res.status(500).json({ success: false, message: "Error" });
     }
 }
+
 
 //remove food
 
