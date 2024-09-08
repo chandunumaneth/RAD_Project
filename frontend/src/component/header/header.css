@@ -1,10 +1,12 @@
-.header{
-    height: 34vw;
-    background: url('../../../header_img.png') no-repeat;
-    background-size: contain;
+.header {
+    height: 80vh; /* Change from 34vw to 100vh */
+    background: url('../../assets/header2.jpg') no-repeat center center; /* Center the background */ 
     position: relative;
+    background-size: cover;
+    width: 100%;
 }
-.header-content{
+
+.header-content {
     position: absolute;
     display: flex;
     flex-direction: column;
@@ -15,40 +17,46 @@
     left: 6vw;
     animation: fadeIn 3s;
 }
-.header-content h2{
+
+.header-content h2 {
     font-weight: 500;
-    color: white;
-    font-size: max(4.5vw,22px);
+    color: rgb(255, 255, 255);
+    font-size: max(4.5vw, 22px);
 }
-.header-content p{
-    color:white;
+
+.header-content p {
+    color: white;
     font-size: 1vw;
 }
-.header-content button{
+
+.header-content button {
     border: none;
     color: #747474;
     font-weight: 500;
     padding: 1vw 2.3vw;
     background-color: white;
-    font-size: max(ivw,13px);
+    font-size: max(1vw, 13px); /* Corrected ivw to 1vw */
     border-radius: 50px;
 }
-.header-content button:hover{
-   background-color: rgb(250, 159, 142); 
+
+.header-content button:hover {
+    background-color: rgb(250, 159, 142);
 }
-@media (max-width:1050px){
-    .header-content{
+
+@media (max-width: 1050px) {
+    .header-content {
         max-width: 45%;
     }
 }
-@media (max-width:750px){
-    .header-content{
+
+@media (max-width: 750px) {
+    .header-content {
         max-width: 55%;
     }
-    .header-content p{
+    .header-content p {
         display: none;
     }
-    .header-content button{
+    .header-content button {
         padding: 2vw 4vw;
     }
 }

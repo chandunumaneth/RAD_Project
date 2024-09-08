@@ -1,27 +1,39 @@
 @import url('https://fonts.googleapis.com/css2?family=Outfit:wght@100..900&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&family=Space+Mono:ital,wght@0,400;0,700;1,400;1,700&display=swap');
-*{
+
+* {
   padding: 0;
   margin: 0;
   box-sizing: border-box;
-  font-family: Outfit;
+  font-family: 'Outfit', sans-serif; /* Ensure the font-family is properly referenced */
   scroll-behavior: smooth;
 }
-body{
-  min-height: 100vh;
+
+html, body {
+  width: 100%;
+  overflow-x: hidden; /* Prevent horizontal scroll */
 }
-a{
+
+body {
+  display: flex; /* Align children elements */
+  flex-direction: column; /* Stack elements vertically */
+  background-color: rgb(196, 209, 209);
+}
+
+a {
   text-decoration: none;
   color: inherit;
 }
-.app{
-  width: 80%;
-  margin: auto;
+
+.app {
+  width: 100%; /* Change width to 100% for full width */
+  margin: auto; /* Center the app content */
 }
-@keyframes fadeIn{
-  0%{
+
+@keyframes fadeIn {
+  0% {
     opacity: 0;
   }
-  100%{
+  100% {
     opacity: 1;
   }
 }

@@ -48,8 +48,8 @@ function FoodDetails() {
         }, {
           headers: { token }
         });
-        setNewComment(""); // Clear the input field
-        fetchComments(); // Reload comments from the backend
+        setNewComment(""); 
+        fetchComments(); 
       } catch (err) {
         console.error("Error adding comment", err);
       }
@@ -68,7 +68,7 @@ function FoodDetails() {
 
       setEditingCommentId(null);
       setEditingCommentText("");
-      fetchComments(); // Reload comments after editing
+      fetchComments(); 
     } catch (err) {
       console.error("Error updating comment", err);
     }
@@ -108,19 +108,16 @@ function FoodDetails() {
         <div className="cart-actions">
           <p>Amount in Cart: {itemInCart}</p>
 
-          {/* Add one item to the cart */}
           <button className="add-button" onClick={() => addToCart(foodItem._id)}>
             Add to Cart
           </button>
 
-          {/* Remove one item from the cart */}
           {itemInCart > 0 && (
             <button className="remove-button" onClick={() => removeFromCart(foodItem._id)}>
               Remove One
             </button>
           )}
 
-          {/* Clear all items from the cart */}
           {itemInCart > 0 && (
             <button className="clear-button" onClick={() =>  removeAllFromCart(foodItem._id)}>
               Remove All

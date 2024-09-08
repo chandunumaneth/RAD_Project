@@ -1,19 +1,36 @@
-.app-download{
-    margin: auto auto;
+.app-download {
+    background-image: 
+    linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), 
+    url('../../assets/deliveryimage.jpg'); 
+    background-repeat: no-repeat;
+    background-position: center center;
+    background-size: cover; 
+    padding-top: 20px;
+    height: 80vh;
+    margin: auto;
     margin-top: 100px;
-    font-size: max(3vw,20px);
+    font-size: max(3vw, 20px);
     text-align: center;
     font-weight: 500;
+    margin-bottom: 0;
 }
+
+.text{
+    margin-top: 150px;
+    align-items: center;
+    color: white;
+}
+
 .app-download-platform{
+
     display: flex;
     justify-content: center;
-    gap: max(2vm,10px);
-    margin-top: 40px;
+    gap: 60px;
+    margin-top: 50px;
 }
 .app-download-platform img{
     width:max(30vw,120px) ;
-    max-width: 180px;
+    max-width: 300px;
     transition: 0.5s;
     cursor: pointer;
 }

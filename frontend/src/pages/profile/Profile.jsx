@@ -129,9 +129,10 @@ function Profile() {
 
     return (
         <div>
-            <h1>Profile</h1>
+            
 
             <div className='profile'>
+            <h1>Profile</h1>
                 <div className='profile__left'>
                     <div className='profile__left__info'>
                         <h3>Name: <span>{profile.name}</span></h3>
