@@ -33,7 +33,7 @@ const StoreContextProvider = (props)=>{
             if (cartItem[item] > 0) {
                 const itemInfo = food_list.find((product) => product._id === item);
                 if (itemInfo) {
-                    totalAmount += itemInfo.price * cartItems[item];
+                    totalAmount += itemInfo.price * cartItem[item];
                 } else {
                     console.warn(`Item with ID ${item} not found in food_list`);
                 }
@@ -41,6 +41,14 @@ const StoreContextProvider = (props)=>{
         }
         return totalAmount;
     };
+
+    const clearItemFromCart = (itemId) => {
+        setCartItem((prevCart) => {
+          const { [itemId]: _, ...rest } = prevCart;
+          return rest; // Return the cart without the item
+        });
+      };
+    
     
     const fetchFoodList = async()=>{
         const response = await axios.get(url+"/api/food/list");
@@ -70,6 +78,7 @@ const StoreContextProvider = (props)=>{
         addToCart,
         removeFromCart,
         getTotalCartAmount,
+        clearItemFromCart,
         url,
         token,
         setToken
