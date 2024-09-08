@@ -7,6 +7,6 @@ const commentRouter = express.Router();
 commentRouter.get("/get/:productId", getComments);
 commentRouter.post("/add", authMiddleware, addComment);
 commentRouter.delete("/delete/:commentId", authMiddleware, deleteComment);
-commentRouter.patch("/update/:productId", authMiddleware, updateComment);
+commentRouter.patch("/update", authMiddleware, updateComment);
 
 export default commentRouter;
