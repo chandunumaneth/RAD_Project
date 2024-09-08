@@ -10,8 +10,8 @@ function FoodDetails() {
   const [foodItem, setFoodItem] = useState(null);
   const [comments, setComments] = useState([]);
   const [newComment, setNewComment] = useState("");
-  const [editingCommentId, setEditingCommentId] = useState(null);
-  const [editingCommentText, setEditingCommentText] = useState("");
+  const [editingCommentId, setEditingCommentId] = useState(null); // Stores ID of comment being edited
+  const [editingText, setEditingText] = useState(""); // Text being edited
 
   useEffect(() => {
     const item = food_list.find(food => food._id === id);
@@ -48,15 +48,15 @@ function FoodDetails() {
         }, {
           headers: { token }
         });
-        setNewComment(""); // Clear the input field
-        fetchComments(); // Reload comments from the backend
+        setNewComment(""); 
+        fetchComments(); 
       } catch (err) {
         console.error("Error adding comment", err);
       }
     }
   };
 
- const handleEditComment = async (commentId) => {
+  const handleEditComment = async (commentId) => {
     if (editingCommentId && editingText) {
       try {
         await axios.patch(`${url}/api/comment/update`, {
@@ -89,8 +89,8 @@ function FoodDetails() {
   };
 
   const startEditing = (comment) => {
-    setEditingCommentId(comment._id);
-    setEditingCommentText(comment.comment);
+    setEditingCommentId(comment._id); // Set the ID of the comment to be edited
+    setEditingText(comment.comment); // Set the text to the current comment's text
   };
 
   if (!foodItem) return <p>Loading...</p>;
@@ -113,15 +113,14 @@ function FoodDetails() {
           </button>
 
           {itemInCart > 0 && (
-            <button className="remove-button" onClick={() => removeFromCart(foodItem._id)}>
-              Remove One
-            </button>
-          )}
-
-          {itemInCart > 0 && (
-            <button className="clear-button" onClick={() =>  removeAllFromCart(foodItem._id)}>
-              Remove All
-            </button>
+            <>
+              <button className="remove-button" onClick={() => removeFromCart(foodItem._id)}>
+                Remove One
+              </button>
+              <button className="clear-button" onClick={() =>  removeAllFromCart(foodItem._id)}>
+                Remove All
+              </button>
+            </>
           )}
         </div>
       )}
@@ -130,14 +129,18 @@ function FoodDetails() {
         <h3>Comments</h3>
         {comments.map((comment) => (
           <div key={comment._id}>
-            <p><strong>{comment.name}:</strong> {comment._id === editingCommentId 
-              ? <input 
+            <p>
+              <strong>{comment.name}:</strong> 
+              {comment._id === editingCommentId ? (
+                <input 
                   type="text" 
-                  value={editingCommentText} 
-                  onChange={(e) => setEditingCommentText(e.target.value)} 
-                /> 
-              : comment.comment
-            }</p>
+                  value={editingText} 
+                  onChange={(e) => setEditingText(e.target.value)} 
+                />
+              ) : (
+                comment.comment
+              )}
+            </p>
 
             {token && localStorage.getItem("email") === comment.email && (
               <div className='comment-buttons'>
