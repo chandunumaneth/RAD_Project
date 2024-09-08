@@ -38,28 +38,32 @@ const addComment = async (req, res) => {
 };
 
 const updateComment = async (req, res) => {
-    const { productId, email, comment } = req.body;
+    const { commentId, comment, email } = req.body;  // Get commentId from request body
+  
+    try {
+      // Check if the user exists
+      const user = await userModel.findOne({ email });
+      if (!user) {
+        return res.status(400).json({ message: "User not found" });
+      }
 
-    try{
-        const user = await userModel.findOne({email})
-
-        if(!user){
-            return res.status(400).json({ message: "User not found"})
-        }
-        const updateComment = await commentModel.findOneAndUpdate(
-            {productId, email}, 
-            { $set: {comment: comment}}, 
-            {new: true})
-
-        if(!updateComment){
-            return res.status(400).json({ message: "Comment not found"})
-        }
-
-        return res.status(200).json({"message": "Comment updated successfully"})
-    }catch(error){
-        res.status(500).json({ message: error.message}) 
+      const updateComment = await commentModel.findOneAndUpdate(
+        { _id: commentId, email }, 
+        { $set: { comment: comment } }, 
+        { new: true } 
+      );
+  
+      if (!updateComment) {
+        return res.status(400).json({ message: "Comment not found" });
+      }
+  
+      // Return success response
+      return res.status(200).json({ message: "Comment updated successfully", updatedComment: updateComment });
+    } catch (error) {
+      // Handle errors
+      res.status(500).json({ message: error.message });
     }
-}
+  };
 
 
 const deleteComment = async (req, res) => {
