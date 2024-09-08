@@ -6,7 +6,7 @@ import './foodDetails.css';
 
 function FoodDetails() {
   const { id } = useParams();
-  const { food_list, url, token } = useContext(StoreContext);
+  const { food_list, url, token, addToCart, removeFromCart, cartItem, clearItemFromCart } = useContext(StoreContext);
   const [foodItem, setFoodItem] = useState(null);
   const [comments, setComments] = useState([]);
   const [newComment, setNewComment] = useState("");
@@ -91,14 +91,43 @@ function FoodDetails() {
     setEditingCommentText(comment.comment);
   };
 
+  // Check if foodItem is null before accessing its properties
   if (!foodItem) return <p>Loading...</p>;
+
+  // Get the quantity of the food item in the cart
+  const itemInCart = cartItem[foodItem._id] || 0;
 
   return (
     <div className='details'>
       <h2>{foodItem.name}</h2>
       <p>{foodItem.description}</p>
-      <p style={{color: 'green'}}>Price: ${foodItem.price}</p>
+      <p style={{ color: 'green' }}>Price: ${foodItem.price}</p>
       <img src={url + "/images/" + foodItem.image} alt={foodItem.name} />
+
+      {token && (
+        <div className="cart-actions">
+          <p>Amount in Cart: {itemInCart}</p>
+
+          {/* Add one item to the cart */}
+          <button className="add-button" onClick={() => addToCart(foodItem._id)}>
+            Add to Cart
+          </button>
+
+          {/* Remove one item from the cart */}
+          {itemInCart > 0 && (
+            <button className="remove-button" onClick={() => removeFromCart(foodItem._id)}>
+              Remove One
+            </button>
+          )}
+
+          {/* Clear all items from the cart */}
+          {itemInCart > 0 && (
+            <button className="clear-button" onClick={() => clearItemFromCart(foodItem._id)}>
+              Remove All
+            </button>
+          )}
+        </div>
+      )}
 
       <div className="comments-section">
         <h3>Comments</h3>
