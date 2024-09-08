@@ -33,6 +33,16 @@ const listShops = async (req, res) => {
     }
 }
 
+const listFoods = async (req, res) => {
+    try {
+      const foods = await foodModel.find({}).populate('shop', 'name'); // Populate 'shop' field with 'name'
+      res.json({ success: true, foods });
+    } catch (error) {
+      console.log(error);
+      res.json({ success: false, message: "Error fetching foods" });
+    }
+  };
+
 // Remove shop
 const removeShop = async (req, res) => {
     try {
@@ -48,4 +58,4 @@ const removeShop = async (req, res) => {
     }
 }
 
-export { addShop, listShops, removeShop };
+export { addShop, listShops, removeShop , listFoods};
