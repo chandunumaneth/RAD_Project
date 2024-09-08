@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import './List.css';
+import './list.css';
 import axios from "axios";
 import { toast } from "react-toastify";
 
@@ -11,7 +11,8 @@ const List = ({ url }) => {
       const response = await axios.get(`${url}/api/food/list`);
       console.log("Response:", response); // Inspect the entire response object
       if (response.data.success) {
-        setList(response.data.data);
+        console.log("List:", response.data.foods); // Inspect the data value
+        setList(response.data.foods);
       } else {
         toast.error('Error fetching list');
       }
@@ -58,9 +59,11 @@ const List = ({ url }) => {
             <p>{item.name}</p>
             <p>{item.category}</p>
             <p>${item.price}</p>
+            <p>{item.shop.name}</p>
             <p>{item.shop ? item.shop.name : 'No Shop'}</p> {/* Displaying store name */}
             <p onClick={() => removeFood(item._id)} className='cursor action-button'>Remove</p>
           </div>
+          
         ))}
       </div>
     </div>
@@ -68,3 +71,4 @@ const List = ({ url }) => {
 };
 
 export default List;
+
