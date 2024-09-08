@@ -1,8 +1,9 @@
 .my-orders{
     width: 70%;
     margin: 0 auto;
+    margin-bottom: 30px;
 }
-.my-orders .container{
+.my-orders .order-container{
     display: flex;;
     flex-direction: column;
     gap: 20px;

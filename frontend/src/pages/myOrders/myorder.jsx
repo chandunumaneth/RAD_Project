@@ -31,7 +31,7 @@ function myorder() {
   return (
     <div className='my-orders'>
         <h2>My Orders</h2>
-        <div className="container">
+        <div className="order-container">
             {data.map((order,index)=>{
                 return (
                    <div key={index} className="my-orders-order">
