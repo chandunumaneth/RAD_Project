@@ -1,4 +1,5 @@
 import shopModel from '../models/shopModels.js';
+import foodModel from '../models/foodModels.js';
 import fs from 'fs';
 
 // Add shop
@@ -44,17 +45,45 @@ const listFoods = async (req, res) => {
   };
 
 // Remove shop
+// const removeShop = async (req, res) => {
+//     try {
+//         const shop = await shopModel.findById(req.body.id);
+//         if (shop.image) {
+//             fs.unlink(`uploads/${shop.image}`, () => {});
+//         }
+//         await shopModel.findByIdAndDelete(req.body.id);
+//         res.json({ success: true, message: "Shop Removed" });
+//     } catch (error) {
+//         console.log(error);
+//         res.json({ success: false, message: "Error removing shop" });
+//     }
+// }
+
 const removeShop = async (req, res) => {
     try {
         const shop = await shopModel.findById(req.body.id);
-        if (shop.image) {
-            fs.unlink(`uploads/${shop.image}`, () => {});
+        
+        if (!shop) {
+            return res.json({ success: false, message: "Shop not found" });
         }
+
+        // Delete associated foods
+        await foodModel.deleteMany({ shop: req.body.id });
+
+        // Delete shop image if it exists
+        if (shop.image) {
+            fs.unlink(`uploads/${shop.image}`, (err) => {
+                if (err) console.error("Error deleting image:", err);
+            });
+        }
+
+        // Delete the shop
         await shopModel.findByIdAndDelete(req.body.id);
-        res.json({ success: true, message: "Shop Removed" });
+
+        res.json({ success: true, message: "Shop and associated foods removed" });
     } catch (error) {
         console.log(error);
-        res.json({ success: false, message: "Error removing shop" });
+        res.json({ success: false, message: "Error removing shop and associated foods" });
     }
 }
 
