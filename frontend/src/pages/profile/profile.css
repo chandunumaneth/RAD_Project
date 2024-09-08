@@ -1,0 +1,57 @@
+button{
+    margin: 5px 5px;
+    padding: 8px 12px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 14px;
+    transition: background-color 0.3s ease;
+}
+
+.logout-button{
+    background-color: rgb(255, 71, 71);
+    color: white;
+}
+
+.profile .delete-confirmation{
+    border-radius: 5px;
+    background-color: rgb(191, 191, 197);
+    gap: 10px;
+    align-items: center;
+    padding-left: 20px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+}
+
+.profile .delete-confirmation input{
+    margin-top: 5px;
+    height: 30px;
+    padding: 5px;
+}
+
+.profile .delete-confirmation .delete{
+    background-color: tomato;
+    color: white
+}
+
+.profile .delete-confirmation .delete:hover{
+    background-color: #ff0000;
+}
+
+.profile .edit-profile{
+    border-radius: 5px;
+    background-color: rgb(191, 191, 197);
+    gap: 10px;
+    align-items: center;
+    padding-left: 20px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+}
+
+.profile .edit-profile input{
+    border: none;
+    margin-right: 10px;
+    margin-top: 5px;
+    height: 30px;
+    padding: 10px;
+}

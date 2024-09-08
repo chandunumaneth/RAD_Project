@@ -1,36 +1,3 @@
-<<<<<<< Updated upstream
-import express from "express";
-import cors from "cors";
-import { connectDB } from "./config/db.js";
-import foodRouter from "./routes/foodRoute.js";
-
-
-//app config
-const app = express();
-const port = 4000;
-
-//middleware
-app.use(express.json());
-app.use(cors());
-
-app.get("/",(req,res) => {
-    res.send("API Working!")
-});
-
-app.listen(port,() => {
-    console.log(`Server started on port ${port}`);
-});
-
-
-//db connection
-
-connectDB();
-
-//api endpoints
-
-app.use("/api/food",foodRouter);
-app.use("/images",express.static('uploads'));
-=======
 import express from "express"
 import cors from "cors"
 import { connectDB } from "./config/db.js"
@@ -76,4 +43,3 @@ app.listen(port,()=>{
 
 
 // mongodb+srv://pasansanjiiwa2022:hat12345@cluster0.bcmel.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0
->>>>>>> Stashed changes
