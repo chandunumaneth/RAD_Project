@@ -1,5 +1,5 @@
 import express from "express";
-import { addShop, listShops, removeShop } from "../controllers/shopController.js";
+import { addShop, listShops, removeShop,  updateShopRating } from "../controllers/shopController.js";
 import multer from "multer";
 
 const shopRouter = express.Router();
@@ -17,6 +17,7 @@ const upload = multer({ storage: storage });
 // Routes
 shopRouter.post("/add", upload.single("image"), addShop);
 shopRouter.get("/list", listShops);
+shopRouter.post('/update-rating', updateShopRating); 
 shopRouter.post("/remove", removeShop);
 
 export default shopRouter;
