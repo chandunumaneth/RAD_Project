@@ -1,0 +1,54 @@
+.app-download {
+    height: 70vh;
+    position: relative; 
+    background: url('../../assets/appBackground.jpg') no-repeat center center;
+    background-size: cover; 
+    margin: auto auto;
+    margin-top: 100px;
+    font-size: max(3vw, 20px);
+    text-align: center;
+    font-weight: 500;
+    color: white; 
+    padding: 40px; 
+}
+
+.app-download::before {
+    content: '';
+    position: absolute; 
+    top: 0; 
+    left: 0; 
+    right: 0;
+    bottom: 0; 
+    background: rgba(0, 0, 0, 0.63); 
+    z-index: 1; 
+}
+
+.app-download-title{
+    margin-top: 140px;
+}
+
+.app-download p {
+    position: relative; /* Make sure the text is above the overlay */
+    z-index: 2; /* Ensure it is above the overlay */
+}
+
+.app-download-platform {
+    display: flex;
+    justify-content: center;
+    gap: max(2vm, 10px);
+    margin-top: 40px;
+    z-index: 2; /* Ensure it is above the overlay */
+    position: relative; /* Make sure the images are above the overlay */
+}
+
+.app-download-platform img {
+    gap: 20px;
+    width: max(30vw, 200px);
+    max-width: 300px;
+    transition: 0.5s;
+    cursor: pointer;
+}
+
+.app-download-platform img:hover {
+    transform: scale(1.05);
+}

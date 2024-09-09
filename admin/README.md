@@ -1,0 +1,1 @@
+Every function works

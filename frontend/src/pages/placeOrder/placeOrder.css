@@ -1,0 +1,117 @@
+.place-order {
+    display: flex;
+    align-items: start;
+    justify-content: center; /* Center the items */
+    gap: 10px;
+    margin-top: 100px;
+}
+
+.place-order-left {
+    padding-left: 100px;
+    width: 100%;
+    max-width: (30% - 50px); 
+}
+
+.place-order-left .title {
+    font-size: 30px;
+    font-weight: 600;
+    margin-bottom: 50px;
+}
+
+.place-order-left input {
+    margin-bottom: 15px;
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #c5c5c5;
+    border-radius: 4px;
+    outline-color: tomato;
+}
+
+.place-order-left .multi-fields {
+    display: flex;
+    gap: 10px;
+}
+
+.place-order-right {
+    width: 120%;
+    display: flex; 
+    flex-direction: column;
+    align-items: center; 
+}
+
+.place-order .cart-total {
+    display: flex; 
+    justify-content: center; 
+    margin-top: 30px; 
+}
+
+.place-order .cart-total button {
+    padding: 10px 20px; /* Padding for button */
+}
+
+.payment-info {
+    display: flex;
+    flex-direction: column;
+    gap: 15px; 
+    margin-top: 30px; 
+    padding: 20px; 
+    border: 1px solid #c5c5c5; 
+    border-radius: 8px;
+    background-color: #f9f9f9; 
+    width: 100%; /* Ensure full width of payment info */
+    max-width: 400px; /* Optional: Set a max width for better alignment */
+}
+
+.payment-info .title {
+    font-size: 24px;
+    font-weight: 600; 
+    color: #292929; 
+}
+
+.payment-info input {
+    width: 100%; 
+    padding: 10px; 
+    border: 1px solid #c5c5c5; 
+    border-radius: 4px;
+    outline-color: tomato; 
+}
+
+.payment-info label {
+    font-size: 16px; /* Font size for labels */
+    color: #747474; /* Color for labels */
+}
+
+.payment-info .payment-options {
+    display: flex; /* Flex display for payment options */
+    justify-content: space-between;
+    gap: 15px; 
+}
+
+.payment-info .payment-option {
+    flex: 1; 
+    padding: 10px; 
+    border: 1px solid #c5c5c5; 
+    border-radius: 4px; 
+    background-color: #ffffff; 
+    transition: background-color 0.2s ease; 
+}
+
+.payment-info .payment-option:hover {
+    background-color: #f0f0f0; 
+}
+
+.payment-info .confirm-button {
+    margin-top: 20px; 
+    padding: 10px 20px; 
+    font-size: 18px; 
+    color: white; 
+    background-color: tomato; 
+    border: none; 
+    border-radius: 4px; 
+    cursor: pointer; 
+    transition: background-color 0.2s ease; 
+}
+
+.payment-info .confirm-button:hover {
+    background-color: darkred; 
+}
