@@ -5,6 +5,7 @@ import { toast } from "react-toastify";
 
 const ListShop = ({ url }) => {
   const [list, setList] = useState([]);
+  const [rating, setRating] = useState({});
 
   const fetchList = async () => {
     const response = await axios.get(`${url}/api/shops/list`);
@@ -12,6 +13,20 @@ const ListShop = ({ url }) => {
       setList(response.data.data);
     } else {
       toast.error("Error fetching shop list");
+    }
+  };
+
+  const updateRating = async (shopId, newRating) => {
+    try {
+      const response = await axios.post(`${url}/api/shops/update-rating`, { id: shopId, rating: newRating });
+      if (response.data.success) {
+        toast.success(response.data.message);
+        await fetchList(); // Refresh the list to reflect updated ratings
+      } else {
+        toast.error("Error updating rating");
+      }
+    } catch (error) {
+      toast.error("Error updating rating");
     }
   };
 
@@ -40,7 +55,7 @@ const ListShop = ({ url }) => {
           <b>Rating</b>
           <b>Action</b>
         </div>
-        {list.map((item, index) => {
+        {/* {list.map((item, index) => {
           return (
             <div key={index} className='list-table-format'>
               <img src={`${url}/images/` + item.image} alt="" />
@@ -50,7 +65,25 @@ const ListShop = ({ url }) => {
               <p onClick={() => removeShop(item._id)} className='cursor action-button'>Remove</p>
             </div>
           );
-        })}
+        })} */}
+        {list.map((item, index) => (
+          <div key={index} className='list-table-format'>
+            <img src={`${url}/images/` + item.image} alt={item.name} />
+            <p>{item.name}</p>
+            <p>{item.address}</p>
+            <p>
+              <input
+                type="number"
+                min="1"
+                max="5"
+                value={rating[item._id] || item.rating}
+                onChange={(e) => setRating({ ...rating, [item._id]: e.target.value })}
+              />
+              <button onClick={() => updateRating(item._id, rating[item._id])}>Update Rating</button>
+            </p>
+            <p onClick={() => removeShop(item._id)} className='cursor action-button'>Remove</p>
+          </div>
+        ))}
       </div>
     </div>
   );

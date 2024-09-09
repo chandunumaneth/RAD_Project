@@ -4,8 +4,10 @@
     border: 1.5px solid #a9a9a9;
     border-top: 0;
     font-size: max(1vw, 10px);
+    background: linear-gradient(to right, rgba(169, 169, 197, 0.664), orange);
 }
 .sidebar-options{
+    margin-top: 20%;
     padding-top: 50px;
     padding-left: 20%;
     display: flex;

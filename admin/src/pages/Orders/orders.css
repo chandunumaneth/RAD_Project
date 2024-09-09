@@ -33,6 +33,20 @@
     border: 1px solid tomato;
 }
 
+.delete-button {
+    background-color: red;
+    color: white;
+    padding: 0.5rem 1rem;
+    border: none;
+    cursor: pointer;
+    margin-left: 1rem;
+  }
+  
+  .delete-button:hover {
+    background-color: darkred;
+  }
+  
+
 .lightcolors .order-item select{
     background-color: #ffe8e4;
     color: black;
@@ -54,3 +68,4 @@
         width: 40px;
     }
 }
+

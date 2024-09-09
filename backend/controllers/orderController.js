@@ -59,10 +59,15 @@ const verifyOrder = async (req, res) => {
   }
 };
 
-
-
-
-// user orders for frontend
+const deleteOrder = async (req,res) => {
+  try{
+    const { orderId } = req.body;
+    await orderModel.findByIdAndDelete(orderId);
+  }catch(error){
+    console.log(error);
+    res.json({success:false,message:"Error"})
+  }
+}
 
 const userOrders = async (req, res) => {
     try {
@@ -107,4 +112,4 @@ const updateStatus = async (req,res) => {
 }
 
 
-export {placeOrder,verifyOrder,userOrders,listOrders,updateStatus}
+export {placeOrder,verifyOrder,userOrders,listOrders,updateStatus, deleteOrder}
