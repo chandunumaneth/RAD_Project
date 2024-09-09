@@ -59,6 +59,22 @@ const listFoods = async (req, res) => {
 //     }
 // }
 
+const updateShopRating = async (req, res) => {
+    const { id, rating } = req.body;
+    try {
+        const shop = await shopModel.findById(id);
+        if (!shop) {
+            return res.status(404).json({ success: false, message: 'Shop not found' });
+        }
+        shop.rating = rating;
+        await shop.save();
+        res.json({ success: true, message: 'Rating updated successfully' });
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ success: false, message: 'Error updating rating' });
+    }
+};
+
 const removeShop = async (req, res) => {
     try {
         const shop = await shopModel.findById(req.body.id);
@@ -87,4 +103,4 @@ const removeShop = async (req, res) => {
     }
 }
 
-export { addShop, listShops, removeShop , listFoods};
+export { addShop, listShops, removeShop , listFoods,updateShopRating};
